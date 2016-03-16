@@ -11,11 +11,13 @@ class Example extends PHPUnit_Extensions_SeleniumTestCase
   {
     $this->open("/");
     $this->type("id=search", "tiani");
+    $this->click("css=button.button");
+    $this->waitForPageToLoad("30000");
     $this->click("id=product-collection-image-3272");
     $this->waitForPageToLoad("30000");
-    $this->click("css=#swatch234 > span.swatch-label");
+    $this->click("css=span.swatch-label");
     $this->click("css=button.button.btn-cart-custom");
-    $this->click("link=Zur Kasse");
+    $this->click("css=span.cart-qty");
     $this->waitForPageToLoad("30000");
   }
 }
