@@ -1,6 +1,6 @@
 <?php
 
-class Selenium2AlertExampleTest extends PHPUnit_Extensions_Selenium2TestCase
+class Selenium2ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 {
 
     public function setUp()
@@ -14,7 +14,7 @@ class Selenium2AlertExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
     }
 
-    public function alertExampleTestCase()
+    public function testSelenium2AlertCase()
     {
 
         $this->url("/");
@@ -33,7 +33,7 @@ class Selenium2AlertExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
     public function tearDown()
     {
-//          $this->stop();
+
     }
 }
 ?>
