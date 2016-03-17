@@ -10,23 +10,67 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->setPort(4444);
         $this->setBrowser("firefox");
         $this->setBrowserUrl("http://simulate.com/");
+    }
 
-//        var_dump($this);
+    public function getRandomCategoryPath(){
+
+        $categoriesArray = array(
+            '/de/fur-sie',
+            '/de/fur-ihn',
+            '/de/fur-paare',
+            '/de/dessous',
+            '/de/drogerie',
+            '/de/sale',
+            '/de/lovebox',
+            '/de/neuheiten',
+        );
+
+        $randomId = rand(0,count($categoriesArray));
+
+
+
+
+        return $categoriesArray[$randomId];
     }
 
     public function testMyTestCase()
     {
 
-        $random_postal = rand (1000,9999);
 
 
-        $this->url("/");
+        $randomCategory = $this->getRandomCategoryPath();
+
+
+        $this->url("$randomCategory");
 //        $this->deleteAllVisibleCookies();
+//        $javascriptCode = 'alert("Hellow");';
+//        $searchbox = $this->byId('search')->click();
+//        $this->execute(array(
+//            'script' => $javascriptCode,
+//            'args' => array()
+//        ));
+        sleep(2);
 
-        $searchbox = $this->byId('search')->click();
-        sleep(10);
+        $items = $this->byClassName('item');
 
-        
+        if($items){
+            echo "\n";
+            echo count($items);
+            echo "\n";
+
+            var_dump($items);
+            echo "WE HAVE FOUND ITEMS \n";
+        }
+
+        $xpathForFirstItem = '//*[@id="amshopby-page-container"]/div[3]/ul/li[1]/div/div[1]/a';
+
+        $this->byXPath($xpathForFirstItem)->click();
+
+//        $element = $this->byId('search')->value('justtesting');
+//        $form = $this->byId('search_mini_form')->submit();
+
+
+        sleep(5);
 
 //        $this->click("id=search");
 //        $this->click("//li[3]/div/div/div/div/div/ul/li[3]/a/span");
@@ -81,6 +125,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
     public function tearDown()
     {
+        echo "Teardown called";
 //        $this->stop();
     }
 }
