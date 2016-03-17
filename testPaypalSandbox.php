@@ -23,7 +23,7 @@ class Example extends PHPUnit_Extensions_SeleniumTestCase
     $this->waitForPageToLoad("30000");
     $this->click("id=payment_wps-head");
     try {
-        $this->assertEquals("info@amorana.ch", $this->getValue("id=payment_wps_required_settings_business_account"));
+        $this->assertEquals("bogdy2p@gmail.com", $this->getValue("id=payment_wps_required_settings_business_account"));
     } catch (PHPUnit_Framework_AssertionFailedError $e) {
         array_push($this->verificationErrors, $e->toString());
     }
