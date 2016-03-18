@@ -14,20 +14,21 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->setBrowserUrl("http://simulate.com/");
     }
 
-    public function getRandomCategoryPath(){
+    public function getRandomCategoryPath()
+    {
 
         $categoriesArray = array(
-//            '/de/fur-sie',
-//            '/de/fur-ihn',
-//            '/de/fur-paare',
-//            '/de/dessous',
-//            '/de/drogerie',
-//            '/de/sale',
+            '/de/fur-sie',
+            '/de/fur-ihn',
+            '/de/fur-paare',
+            '/de/dessous',
+            '/de/drogerie',
+            '/de/sale',
             '/de/lovebox',
-//            '/de/neuheiten',
+            '/de/neuheiten',
         );
 
-        $randomId = rand(0,count($categoriesArray)-1);
+        $randomId = rand(0, count($categoriesArray) - 1);
 
 
 
@@ -53,24 +54,27 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         sleep(1);
 
 
-        //*[@id="attribute153"]/option[2]
-
-
         $superAttributeOptionsPath = "//*[contains(@class, 'super-attribute-select')]";
 
-        $selectDiv = $this->byXPath($superAttributeOptionsPath);
+        try {
+            $selectDiv = $this->byXPath($superAttributeOptionsPath);
+            $selectDiv->click();
+            $this->keys(Keys::ARROW_DOWN);
+            $this->keys(Keys::ARROW_DOWN);
+            $this->keys(Keys::ENTER);
+        } catch (Exception $ex) {
 
-        $selectDiv->click();
+        }
+        sleep(1);
 
-        $this->keys(Keys::ARROW_DOWN);
-        $this->keys(Keys::ARROW_DOWN);
-        $this->keys(Keys::ENTER);
+        $addToCartButtonPath = '//*[@id="product_addtocart_form"]/div[2]/div[3]/div[4]/div[2]/button';
 
+        $this->byXPath($addToCartButtonPath)->click();
+        
+        sleep(3);
 
 //        $options = $this->byId('attribute153')->size();
-
 //       $test =  $this->select($options)->se();
-
 //        var_dump($selectDiv);
 
         sleep(5);
@@ -78,9 +82,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 //
 //
 //
-
 //        sleep(10);
-
 //        //        $items = $this->byClassName('item');
 //
 //        if($items){
@@ -91,12 +93,8 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 //            var_dump($items);
 //            echo "WE HAVE FOUND ITEMS \n";
 //        }
-
-
 //        $element = $this->byId('search')->value('justtesting');
 //        $form = $this->byId('search_mini_form')->submit();
-
-
         //        $this->deleteAllVisibleCookies();
 //        $javascriptCode = 'alert("Hellow");';
 //        $searchbox = $this->byId('search')->click();
@@ -104,10 +102,6 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 //            'script' => $javascriptCode,
 //            'args' => array()
 //        ));
-
-
-
-
 //        $this->click("id=search");
 //        $this->click("//li[3]/div/div/div/div/div/ul/li[3]/a/span");
 //        $this->waitForPageToLoad("30000");
