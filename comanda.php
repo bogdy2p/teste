@@ -1,5 +1,7 @@
 <?php
 
+use WebDriverKeys as Keys;
+
 class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 {
 
@@ -15,17 +17,17 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
     public function getRandomCategoryPath(){
 
         $categoriesArray = array(
-            '/de/fur-sie',
-            '/de/fur-ihn',
-            '/de/fur-paare',
-            '/de/dessous',
-            '/de/drogerie',
-            '/de/sale',
+//            '/de/fur-sie',
+//            '/de/fur-ihn',
+//            '/de/fur-paare',
+//            '/de/dessous',
+//            '/de/drogerie',
+//            '/de/sale',
             '/de/lovebox',
-            '/de/neuheiten',
+//            '/de/neuheiten',
         );
 
-        $randomId = rand(0,count($categoriesArray));
+        $randomId = rand(0,count($categoriesArray)-1);
 
 
 
@@ -37,40 +39,74 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
     {
 
 
-
+        //Get a random category
         $randomCategory = $this->getRandomCategoryPath();
-
-
+        //Access the random category
         $this->url("$randomCategory");
-//        $this->deleteAllVisibleCookies();
+        //Sleep for 2 seconds
+        sleep(2);
+
+        //Get xpath for the item on the product page , and click it.
+        $xpathForFirstItem = '//*[@id="amshopby-page-container"]/div[3]/ul/li[1]/div/div[1]/a';
+        $this->byXPath($xpathForFirstItem)->click();
+        //Sleep for 5 seconds
+        sleep(1);
+
+
+        //*[@id="attribute153"]/option[2]
+
+
+        $superAttributeOptionsPath = "//*[contains(@class, 'super-attribute-select')]";
+
+        $selectDiv = $this->byXPath($superAttributeOptionsPath);
+
+        $selectDiv->click();
+
+        $this->keys(Keys::ARROW_DOWN);
+        $this->keys(Keys::ARROW_DOWN);
+        $this->keys(Keys::ENTER);
+
+
+//        $options = $this->byId('attribute153')->size();
+
+//       $test =  $this->select($options)->se();
+
+//        var_dump($selectDiv);
+
+        sleep(5);
+//        product-options-wrapper
+//
+//
+//
+
+//        sleep(10);
+
+//        //        $items = $this->byClassName('item');
+//
+//        if($items){
+//            echo "\n";
+//            echo count($items);
+//            echo "\n";
+//
+//            var_dump($items);
+//            echo "WE HAVE FOUND ITEMS \n";
+//        }
+
+
+//        $element = $this->byId('search')->value('justtesting');
+//        $form = $this->byId('search_mini_form')->submit();
+
+
+        //        $this->deleteAllVisibleCookies();
 //        $javascriptCode = 'alert("Hellow");';
 //        $searchbox = $this->byId('search')->click();
 //        $this->execute(array(
 //            'script' => $javascriptCode,
 //            'args' => array()
 //        ));
-        sleep(2);
-
-        $items = $this->byClassName('item');
-
-        if($items){
-            echo "\n";
-            echo count($items);
-            echo "\n";
-
-            var_dump($items);
-            echo "WE HAVE FOUND ITEMS \n";
-        }
-
-        $xpathForFirstItem = '//*[@id="amshopby-page-container"]/div[3]/ul/li[1]/div/div[1]/a';
-
-        $this->byXPath($xpathForFirstItem)->click();
-
-//        $element = $this->byId('search')->value('justtesting');
-//        $form = $this->byId('search_mini_form')->submit();
 
 
-        sleep(5);
+
 
 //        $this->click("id=search");
 //        $this->click("//li[3]/div/div/div/div/div/ul/li[3]/a/span");
