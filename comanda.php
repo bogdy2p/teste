@@ -132,7 +132,11 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         }
         //Wait 10 seconds.
         sleep(15);
-        
+
+        //Assert that the url we were redirected to contains the success.
+        $this->assertContains('onepage/success', $this->url());
+
+
     }
 
     public function tearDown()
