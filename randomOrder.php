@@ -47,8 +47,9 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         }
     }
 
-    public function fillBillingAdressForm(){
-        
+    public function fillBillingAdressForm()
+    {
+
         $sexSelector           = '#billing-new-address-form > fieldset > ul > li:nth-child(1) > div > div.field.name-prefix > div > input[type="radio"]:nth-child(1)';
         sleep(1);
         $this->byCssSelector($sexSelector)->click();
@@ -73,29 +74,46 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         $economyShipping->click();
     }
 
-
-    public function clickGiftWrapAndWait($ammount){
+    public function clickGiftWrapAndWait($ammount)
+    {
         $giftWrapCssSelector = '#opc-review-block > div.product-giftwrap > ul > li > div > input';
-        $giftwrapInput = $this->findElementWaitUntilbyCssPath($giftWrapCssSelector);
+        $giftwrapInput       = $this->findElementWaitUntilbyCssPath($giftWrapCssSelector);
         $giftwrapInput->click();
         sleep($ammount);
     }
 
+    public function getNumberOfProductsOnPage()
+    {
+        $elements = $this->elements($this->using('css selector')->value('div.category-products > ul > li'));
+        return count($elements);
+    }
+
+    public function getRandomProductOnPage()
+    {
+
+        $number_of_elements = $this->getNumberOfProductsOnPage();
+        $random_number      = rand(1, $number_of_elements);
+        $path               = '//*[@id="amshopby-page-container"]/div[3]/ul/li['.$random_number.']/div/div[1]/a';
+
+        return $path;
+    }
 
     public function testMyTestCase()
     {
         //Get a random category
-        $randomCategory    = $this->getRandomCategoryPath();
+        $randomCategory = $this->getRandomCategoryPath();
         //Access the random category
         $this->url("$randomCategory");
+
         //Get xpath for the item on the product page , and click it.
-        $xpathForFirstItem = '//*[@id="amshopby-page-container"]/div[3]/ul/li[1]/div/div[1]/a';
-        $this->byXPath($xpathForFirstItem)->click();
+//        $xpathForFirstItem = '//*[@id="amshopby-page-container"]/div[3]/ul/li[1]/div/div[1]/a';
+        $xpath                     = $this->getRandomProductOnPage();
+        $this->byXPath($xpath)->click();
         //Sleep for 1 seconds
         sleep(1);
         $superAttributeOptionsPath = "//*[contains(@class, 'super-attribute-select')]";
         //Initialize path for product options button here:
-        $addToCartSelector = '#product_addtocart_form > div.row > div.product-shop-right.col-sm-4 > div.add-to-box > div.add-to-cart > button';
+        $addToCartSelector         = '#product_addtocart_form > div.row > div.product-shop-right.col-sm-4 > div.add-to-box > div.add-to-cart > button';
 
         try {
             $selectDiv         = $this->byXPath($superAttributeOptionsPath);
@@ -135,8 +153,6 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
         //Assert that the url we were redirected to contains the success.
         $this->assertContains('onepage/success', $this->url());
-
-
     }
 
     public function tearDown()
