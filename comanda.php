@@ -25,15 +25,26 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
             '/de/drogerie',
             '/de/sale',
             '/de/lovebox',
-            '/de/neuheiten',
+            // '/de/neuheiten',
         );
-
-        $randomId = rand(0, count($categoriesArray) - 1);
-
-
-
-
+        $randomId        = rand(0, count($categoriesArray) - 1);
         return $categoriesArray[$randomId];
+    }
+
+    public function findElementWaitUntilbyCssPath($elementCssPath)
+    {
+        $this->waitUntil(function() use($elementCssPath) {
+            if ($this->byCssSelector($elementCssPath)) {
+                return true;
+            }
+            return null;
+        }, 10000);
+        try {
+            $object = $this->byCssSelector($elementCssPath);
+            return $object;
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function testMyTestCase()
@@ -41,16 +52,15 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
 
         //Get a random category
-        $randomCategory = $this->getRandomCategoryPath();
+        $randomCategory    = $this->getRandomCategoryPath();
         //Access the random category
         $this->url("$randomCategory");
         //Sleep for 2 seconds
-        sleep(2);
-
+//        sleep(2);
         //Get xpath for the item on the product page , and click it.
         $xpathForFirstItem = '//*[@id="amshopby-page-container"]/div[3]/ul/li[1]/div/div[1]/a';
         $this->byXPath($xpathForFirstItem)->click();
-        //Sleep for 5 seconds
+        //Sleep for 1 seconds
         sleep(1);
 
 
@@ -61,7 +71,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         $addToCartSelector = '#product_addtocart_form > div.row > div.product-shop-right.col-sm-4 > div.add-to-box > div.add-to-cart > button';
 
         try {
-            $selectDiv = $this->byXPath($superAttributeOptionsPath);
+            $selectDiv         = $this->byXPath($superAttributeOptionsPath);
             $selectDiv->click();
             $this->keys(Keys::ARROW_DOWN);
             $this->keys(Keys::ARROW_DOWN);
@@ -73,18 +83,58 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         sleep(1);
         //Add selected product (with option if available , to cart)
         $this->byCssSelector($addToCartSelector)->click();
-        
-        sleep(3);
+        sleep(1);
 
-//        $options = $this->byId('attribute153')->size();
-//       $test =  $this->select($options)->se();
-//        var_dump($selectDiv);
+        //Zur Kasse Xpath
+        //    /html/body/div[2]/div/div[2]/div[2]/div[1]/div[3]/div/div/div[2]/a
+        //Zur Kasse Selector:
+        $zurKasseSelector = 'body > div.wrapper > div > div.header-container.type4 > div.header.container > div.cart-area > div.mini-cart > div > div > div.actions > a';
 
-//        sleep(5);
-//        product-options-wrapper
-//
-//
-//
+        $this->byCssSelector($zurKasseSelector)->click();
+        sleep(1);
+
+        $form = $this->byId("opc-address-form-billing");
+
+
+        $sexSelector           = '#billing-new-address-form > fieldset > ul > li:nth-child(1) > div > div.field.name-prefix > div > input[type="radio"]:nth-child(1)';
+        sleep(1);
+        //Click option 1 for MALE.
+        $this->byCssSelector($sexSelector)->click();
+        sleep(1);
+        $this->byName('billing[firstname]')->value('FirstnameValueHere');
+        $this->byName('billing[lastname]')->value('LastnameValueHere');
+        $this->byName('billing[street][]')->value('StreetValueHere');
+        $this->byName('billing[postcode]')->value('8085');
+        sleep(1);
+        $this->byName('billing[city]')->value('CityName');
+        sleep(1);
+        $this->byName('billing[email]')->value('bogdan.popa@reea.net');
+        sleep(1);
+        $this->byName('billing[use_for_shipping]')->value('1');
+        sleep(1);
+        $paymentMethodSelector = '#p_method_banktransfer';
+        $this->byCssSelector($paymentMethodSelector)->click();
+        sleep(5);
+
+//        sleep(10);
+        $economyShippingSelector = '#s_method_matrixrate_matrixrate_3';
+        $economyShipping         = $this->findElementWaitUntilbyCssPath($economyShippingSelector);
+        $economyShipping->click();
+//        $this->byCssSelector($economyShippingSelector)->click();
+
+
+        $giftWrapCssSelector = '#opc-review-block > div.product-giftwrap > ul > li > div > input';
+
+        $giftwrapInput = $this->findElementWaitUntilbyCssPath($giftWrapCssSelector);
+        $giftwrapInput->click();
+
+
+
+//        ->click();
+
+        sleep(10);
+
+
 //        sleep(10);
 //        //        $items = $this->byClassName('item');
 //
