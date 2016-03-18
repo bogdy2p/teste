@@ -56,20 +56,23 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
         $superAttributeOptionsPath = "//*[contains(@class, 'super-attribute-select')]";
 
+
+        //Initialize path for product options button here:
+        $addToCartSelector = '#product_addtocart_form > div.row > div.product-shop-right.col-sm-4 > div.add-to-box > div.add-to-cart > button';
+
         try {
             $selectDiv = $this->byXPath($superAttributeOptionsPath);
             $selectDiv->click();
             $this->keys(Keys::ARROW_DOWN);
             $this->keys(Keys::ARROW_DOWN);
             $this->keys(Keys::ENTER);
+            $addToCartSelector = '#product_addtocart_form > div.row > div.product-shop-right.col-sm-4 > div.product-options-bottom > div.add-to-cart > button';
         } catch (Exception $ex) {
 
         }
         sleep(1);
-
-        $addToCartButtonPath = '//*[@id="product_addtocart_form"]/div[2]/div[3]/div[4]/div[2]/button';
-
-        $this->byXPath($addToCartButtonPath)->click();
+        //Add selected product (with option if available , to cart)
+        $this->byCssSelector($addToCartSelector)->click();
         
         sleep(3);
 
@@ -77,7 +80,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 //       $test =  $this->select($options)->se();
 //        var_dump($selectDiv);
 
-        sleep(5);
+//        sleep(5);
 //        product-options-wrapper
 //
 //
