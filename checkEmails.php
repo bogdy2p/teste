@@ -9,7 +9,6 @@ class CheckEmailsTest extends PHPUnit_Extensions_Selenium2TestCase
 
     public function setUp()
     {
-
         $this->setHost('localhost');
         $this->setPort(4444);
         $this->setBrowser("firefox");
@@ -55,11 +54,13 @@ class CheckEmailsTest extends PHPUnit_Extensions_Selenium2TestCase
         $log1Selector = 'smtppro_debug_logenabled';
         $log2Selector= 'smtppro_debug_log_debug';
 
-        $this->assertEquals('google', $this->byId($emailConnectionSelector)->value());
-        $this->assertEquals('bogdy2p@gmail.com', $this->byId($googleAppsEmailAdressSelector)->value());
-        $this->assertEquals(THEPASSWORD, $this->byId($googleAppsPasswordSelector)->value());
-        $this->assertEquals('1', $this->byId($log1Selector)->value());
-        $this->assertEquals('1', $this->byId($log2Selector)->value());
+        $this->assertEquals('google', $this->byId($emailConnectionSelector)->value(),'SmtpProEmailConnection not correctly set');
+        $this->assertEquals('bogdy2p@gmail.com', $this->byId($googleAppsEmailAdressSelector)->value(),'SmtpProEmail not correctly set');
+        $this->assertEquals(THEPASSWORD, $this->byId($googleAppsPasswordSelector)->value(),'SmtpProEmai Password not correctly set');
+        $this->assertEquals('1', $this->byId($log1Selector)->value(),'SmtpProEmail Logging1 not correctly set');
+        $this->assertEquals('1', $this->byId($log2Selector)->value(),'SmtpProEmail Logging2 not correctly set');
+
+        
 
         sleep(5);
         // //Click on Sales -> Payment Methods;

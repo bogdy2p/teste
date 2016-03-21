@@ -50,15 +50,15 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->byCssSelector($paypalConfigure)->click();
         
         $inputEmailSelector = 'payment_wps_required_settings_business_account';
-        $this->assertEquals('bogdy2p@gmail.com', $this->byId($inputEmailSelector)->value());
+        $this->assertEquals('bogdy2p@gmail.com', $this->byId($inputEmailSelector)->value(),'Paypal is not set to testing !');
 
         //Click on ADVANCED settings here
         $this->byId('payment_settings_payments_standart_advanced-head')->click();
 
         //Assert that paypal is in SANDBOX MODE.
-        $this->assertEquals('1', $this->byId('payment_settings_payments_standart_advanced_sandbox_flag')->value());
+        $this->assertEquals('1', $this->byId('payment_settings_payments_standart_advanced_sandbox_flag')->value(),'Paypal setting is not in sanbox mode !');
         //Assert that paypal is in DEBUG MODE
-        $this->assertEquals('1', $this->byId('payment_settings_payments_standart_advanced_debug')->value());
+        $this->assertEquals('1', $this->byId('payment_settings_payments_standart_advanced_debug')->value(),' Paypal advanced debugging is not on!');
         sleep(10);
     }
 }

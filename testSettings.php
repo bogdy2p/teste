@@ -96,7 +96,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
         foreach ($email_inputs as $email_input_field) {
             $this->assertEquals('bogdan.popa@reea.net',
-                $this->byId($email_input_field)->value());
+                $this->byId($email_input_field)->value(),"$email_input_field has wrong value!");
         }
 
         sleep(2);
@@ -120,7 +120,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
         foreach ($contacts_inputs as $contacts_input) {
             $this->assertEquals('bogdan.popa@reea.net',
-                $this->byId($contacts_input)->value());
+                $this->byId($contacts_input)->value(),"$contacts_input has wrong value!");
         }
 
         sleep(1);
@@ -136,7 +136,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
             }
        
         sleep(1);
-        $this->assertEquals('bogdan.popa@reea.net', $this->byId('sales_email_invoice_copy_to')->value());
+        $this->assertEquals('bogdan.popa@reea.net', $this->byId('sales_email_invoice_copy_to')->value(),'Sales invoice copy to has wrong value!');
         sleep(1);
     }
 
