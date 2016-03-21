@@ -61,7 +61,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         sleep(1);
         $this->byName('billing[city]')->value('CityName');
         sleep(1);
-        $this->byName('billing[email]')->value('bogdan.popa@reea.net');
+        $this->byName('billing[email]')->value('bogdy2p@gmail.com');
         sleep(1);
         $this->byName('billing[use_for_shipping]')->value('1');
         sleep(1);
@@ -148,12 +148,43 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         } catch (Exception $ex) {
             var_dump($ex->getMessage());
         }
-        //Wait 10 seconds.
+        //Wait 20 seconds. (For paypal redirect , might take longer..)
         sleep(15);
 
         //Assert that the url we were redirected to contains the success.
-        $this->assertContains('onepage/success', $this->url(),'Redirect url did not contain onepage/success !');
+        $this->assertContains('sandbox.paypal.com', $this->url(),'Redirect url did not contain onepage/success ! / Failed to redirect...');
+        $this->fillPaypalPage();
+       
+      
+        $this->byId('continue_abovefold')->click();
+        sleep(10);
+        $this->finalAssertions();
+        
+
     }
+
+    public function fillPaypalPage(){
+
+        // $this->byId('login_email')->value('bogdy2p@gmail.com');
+        $this->byId('login_password')->value('admin123');
+        $this->byId('submitLogin')->click();
+         //Wait 10 seconds for paypal redirect also..
+        sleep(10);
+    }
+
+    public function finalAssertions(){
+
+        $this->byId('doneInfo > ul > li:nth-child(1) > span > span > input[type="submit"]')->click();
+        sleep(15);
+        //Return to test store -> #doneInfo > ul > li:nth-child(1) > span > span > input[type="submit"]
+
+
+        //Assert that we are redirected back to the MAGENTO SITE.
+
+        sleep(50);
+
+    }
+
 
     public function tearDown()
     {
