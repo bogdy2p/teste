@@ -44,7 +44,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         //Click on Sales -> Payment Methods;
         $salesPaymentMethodsSelector = '#system_config_tabs > li:nth-child(20) > dl > dd:nth-child(10) > a';
         $this->byCssSelector($salesPaymentMethodsSelector)->click();
-        sleep(1);
+        sleep(3);
         //Click on Paypal Paymen Solutions -> Configure
         $paypalConfigure = '#payment_wps-head';
         $this->byCssSelector($paypalConfigure)->click();
