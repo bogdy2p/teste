@@ -20,6 +20,12 @@ cd $testsFolderPath;
 echo "Executing settings testing using selenium2";
 $phpunitFolderPath testSettings.php;
 
+echo "Executin check paypal settings using selenium2";
+$phpunitFolderPath checkPaypalSanbox.php;
+
+echo "Executin check paypal settings using selenium2";
+$phpunitFolderPath checkEmails.php;
+
 echo "Executing order testing using selenium2";
 $phpunitFolderPath randomOrder.php;
 

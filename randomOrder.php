@@ -152,7 +152,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         sleep(15);
 
         //Assert that the url we were redirected to contains the success.
-        $this->assertContains('onepage/success', $this->url());
+        $this->assertContains('onepage/success', $this->url(),'Redirect url did not contain onepage/success !');
     }
 
     public function tearDown()
