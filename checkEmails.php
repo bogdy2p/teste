@@ -55,7 +55,8 @@ class CheckEmailsTest extends PHPUnit_Extensions_Selenium2TestCase
 
         $this->assertEquals('google', $this->byId($emailConnectionSelector)->value(),'SmtpProEmailConnection not correctly set');
         $this->assertEquals('bogdy2p@gmail.com', $this->byId($googleAppsEmailAdressSelector)->value(),'SmtpProEmail not correctly set');
-        $this->assertEquals(THEPASSWORD, $this->byId($googleAppsPasswordSelector)->value(),'SmtpProEmai Password not correctly set');
+        //Do not check password...
+        // $this->assertEquals(THEPASSWORD, $this->byId($googleAppsPasswordSelector)->value(),'SmtpProEmai Password not correctly set');
         $this->assertEquals('1', $this->byId($log1Selector)->value(),'SmtpProEmail Logging1 not correctly set');
         $this->assertEquals('1', $this->byId($log2Selector)->value(),'SmtpProEmail Logging2 not correctly set');
 
