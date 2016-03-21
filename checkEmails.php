@@ -47,16 +47,21 @@ class CheckEmailsTest extends PHPUnit_Extensions_Selenium2TestCase
 
         $smtpProSelector = '#system_config_tabs > li:nth-child(25) > dl > dd > a';
         $this->byCssSelector($smtpProSelector)->click();
-        sleep(10);
+//        sleep(10);
 
-        $emailConnectionSelector = '#smtppro_general_option';
-        $googleAppsEmailAdressSelector='#smtppro_general_googleapps_email';
-        $googleAppsPasswordSelector='#smtppro_general_googleapps_gpassword';
-        $log1Selector = '#smtppro_debug_logenabled';
-        $log2Selector= '#smtppro_debug_log_debug';
+        $emailConnectionSelector = 'smtppro_general_option';
+        $googleAppsEmailAdressSelector='smtppro_general_googleapps_email';
+        $googleAppsPasswordSelector='smtppro_general_googleapps_gpassword';
+        $log1Selector = 'smtppro_debug_logenabled';
+        $log2Selector= 'smtppro_debug_log_debug';
 
-        
+        $this->assertEquals('google', $this->byId($emailConnectionSelector)->value());
+        $this->assertEquals('bogdy2p@gmail.com', $this->byId($googleAppsEmailAdressSelector)->value());
+        $this->assertEquals(THEPASSWORD, $this->byId($googleAppsPasswordSelector)->value());
+        $this->assertEquals('1', $this->byId($log1Selector)->value());
+        $this->assertEquals('1', $this->byId($log2Selector)->value());
 
+        sleep(5);
         // //Click on Sales -> Payment Methods;
         // $salesPaymentMethodsSelector = '#system_config_tabs > li:nth-child(20) > dl > dd:nth-child(10) > a';
         // $this->byCssSelector($salesPaymentMethodsSelector)->click();
