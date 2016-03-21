@@ -50,7 +50,7 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->byCssSelector($paypalConfigure)->click();
         
         $inputEmailSelector = 'payment_wps_required_settings_business_account';
-        $this->assertEquals('bogdy2p@gmail.com', $this->byId($inputEmailSelector)->value(),'Paypal is not set to testing !');
+        $this->assertEquals('bogdy2p-1@gmail.com', $this->byId($inputEmailSelector)->value(),'Paypal is not set to testing !');
 
         //Click on ADVANCED settings here
         $this->byId('payment_settings_payments_standart_advanced-head')->click();
