@@ -136,7 +136,6 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         sleep(1);
 
         $this->fillBillingAdressForm();
-
         $this->clickGiftWrapAndWait(10);
 
         //Click Place Order
@@ -154,8 +153,6 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
         //Assert that the url we were redirected to contains the success.
         $this->assertContains('sandbox.paypal.com', $this->url(),'Redirect url did not contain onepage/success ! / Failed to redirect...');
         $this->fillPaypalPage();
-       
-      
         $this->byId('continue_abovefold')->click();
         sleep(10);
         $this->finalAssertions();
@@ -174,15 +171,11 @@ class ExampleTest extends PHPUnit_Extensions_Selenium2TestCase
 
     public function finalAssertions(){
 
-        $this->byId('doneInfo > ul > li:nth-child(1) > span > span > input[type="submit"]')->click();
+        $this->byCssSelector('#doneInfo > ul > li:nth-child(1) > span > span > input[type="submit"]')->click();
         sleep(15);
         //Return to test store -> #doneInfo > ul > li:nth-child(1) > span > span > input[type="submit"]
-
-
+        $this->assertContains('onepage/success', $this->url(),'Redirect url did not contain onepage/success !');
         //Assert that we are redirected back to the MAGENTO SITE.
-
-        sleep(50);
-
     }
 
 
