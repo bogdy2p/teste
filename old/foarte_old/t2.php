@@ -6,7 +6,7 @@ class Example extends PHPUnit_Framework_TestCase
 {
   protected function setUp()
   {
-    $this = new Testing_Selenium("*chrome", "http://simulate.com/")
+    $this = new Testing_Selenium("*chrome", "http://simulate.com/");
     $this->open("/");
     $this->type("id=search", "tiani");
     $this->click("css=button.button");
